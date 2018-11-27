@@ -106,6 +106,38 @@ COPY shiny-server.conf /etc/shiny-server/shiny-server.conf
 RUN mkdir /var/lib/shiny-server/bookmarks \
  && chown -R shiny:shiny /var/lib/shiny-server/bookmarks
 
+
+# basic shiny functionality
+RUN R -e "install.packages('binom', repos='https://cran.r-project.org/')" \
+&& R -e "install.packages('dplyr', repos='https://cran.r-project.org/')" \
+&& R -e "install.packages('ggplot2', repos='https://cran.r-project.org/')" \
+&& R -e "install.packages('reshape', repos='https://cran.r-project.org/')" \
+&& R -e "install.packages('curl', repos='https://cran.r-project.org/')" \
+&& R -e "install.packages('httr', repos='https://cran.r-project.org/')" \
+&& R -e "install.packages('devtools', repos='https://cran.r-project.org/')" \
+&& R -e "install.packages('remotes', repos='https://cran.r-project.org/')" \
+#&& R -e "remotes::install_url('https://cran.r-project.org/src/contrib/httpuv_1.4.3.tar.gz')" \
+#&& R -e "download.file('https://github.com/rstudio/httpuv/archive/master.zip', 'httpuv-master.zip'); unlink('httpuv-master', recursive = TRUE); unzip('httpuv-master.zip', unzip = '/usr/bin/unzip'); file.mode('httpuv-master/src/libuv/configure')" \
+#&& R -e "options(unzip = 'internal'); options(unzip = '/usr/bin/unzip'); devtools::install_github('rstudio/httpuv')" \
+#&& R -e "options(unzip = 'internal'); devtools::install_github('rstudio/shiny')" \
+&& R -e "install.packages('formattable', repos='https://cran.r-project.org/')" \
+&& R -e "install.packages('car', repos='https://cran.r-project.org/')" \
+&& R -e "install.packages('fmsb', repos='https://cran.r-project.org/')" \
+&& R -e "install.packages('igraph', repos='https://cran.r-project.org/')" \
+&& sudo su - -c "R -e \"install.packages('miniUI', repos='https://cran.r-project.org/');options(unzip = 'internal'); remotes::install_github('daattali/shinyjs')\"" \
+#RUN R -e "options(unzip = 'internal'); devtools::install_github('daattali/shinyjs')" \
+&& R -e "install.packages('scales', repos='https://cran.r-project.org/')" \
+&& R -e "install.packages('crosstalk', repos='https://cran.r-project.org/')" \
+&& sudo su - -c "R -e \"options(unzip = 'internal'); remotes::install_github('rstudio/DT')\"" \
+#RUN R -e "devtools::install_github('rstudio/DT')" \
+&& sudo su - -c "R -e \"install.packages(c('raster', 'sp', 'viridis'), repos='https://cran.r-project.org/');options(unzip = 'internal'); remotes::install_github('rstudio/leaflet')\"" \
+&& sudo su - -c "R -e \"options(unzip = 'internal'); remotes::install_github('bhaskarvk/leaflet.extras')\"" \
+&& R -e "install.packages('ggrepel', repos='https://cran.r-project.org/')" \
+#RUN R -e "install.packages('leaflet', repos='https://cran.r-project.org/')" \
+&& R -e "install.packages('visNetwork', repos='https://cran.r-project.org/')" \
+&& R -e "install.packages('purrr', repos='https://cran.r-project.org/')" \
+&& sudo su - -c "R -e \"options(unzip = 'internal'); remotes::install_github('kuzmenkov111/highcharter')\"" 
+
 RUN sudo rm -rf /srv/shiny-server/sample-apps \
 && rm -rf /srv/shiny-server/
 
