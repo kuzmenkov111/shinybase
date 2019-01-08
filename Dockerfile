@@ -64,8 +64,20 @@ RUN apt-get update && apt-get install -y \
     liblzma-dev \
     libnlopt-dev \
     build-essential
-    
-RUN apt-get install -y software-properties-common
+
+RUN sudo apt-get install -y software-properties-common
+RUN sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E298A3A825C0D65DFD57CBB651716619E084DAB9
+RUN sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+RUN sudo apt-get update -y
+RUN sudo apt-get install -y gcc-4.9
+RUN sudo apt-get install -y g++-4.9
+RUN sudo apt-get update -y
+RUN sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 60 --slave /usr/bin/g++ g++ /usr/bin/g++-4.9
+RUN sudo update-alternatives --config gcc
+RUN sudo apt-get install -y gfortran-4.9
+RUN sudo update-alternatives --install /usr/bin/gfortran gfortran /usr/bin/gfortran-4.9 60
+RUN sudo update-alternatives --config gfortran
+
 RUN add-apt-repository -y ppa:ubuntugis/ubuntugis-unstable
 RUN apt-get update
 RUN apt-get install -y libudunits2-dev libgdal-dev libgeos-dev 
