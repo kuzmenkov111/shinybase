@@ -153,10 +153,8 @@ RUN R -e "install.packages('binom', repos='https://cran.r-project.org/')" \
 RUN sudo rm -rf /srv/shiny-server/sample-apps \
 && rm -rf /srv/shiny-server/
 
-
 #volume for Shiny Apps and static assets. Here is the folder for index.html(link) and sample apps.
 VOLUME /srv/shiny-server    
-
 
 
 
